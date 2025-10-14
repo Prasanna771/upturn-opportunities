@@ -38,7 +38,7 @@ const features = [
 ];
 
 const AboutSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
+ // const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
