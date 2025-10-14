@@ -48,7 +48,7 @@ export default function ServicesSection() {
         </ServiceCard>
         <ServiceCard title="Purposeful Recruiting" subtitle="Recruiting with Purpose">
           <p>
-            We believe a successful hire goes beyond the resume. It's about aligning skill, ambition, and culture. We connect exceptional professionals with organizations where they can thrive.
+            We believe a successful hire goes beyond the resume. It&#39;s about aligning skill, ambition, and culture. We connect exceptional professionals with organizations where they can thrive.
           </p>
           <ul className="list-disc list-inside pt-2">
             <li>Executive Search & C-Suite Placement</li>
