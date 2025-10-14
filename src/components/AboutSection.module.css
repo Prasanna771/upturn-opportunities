@@ -1,0 +1,169 @@
+.aboutSection {
+  padding: 100px 20px;
+  background-color: #f8f9fa; /* A very light grey for a clean look */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.aboutSection.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #0f0229;
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+}
+
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background-color: #0d6efd;
+}
+
+/* Section 1: Who We Are */
+.intro {
+  margin-bottom: 80px;
+}
+
+.introText {
+  max-width: 800px;
+  margin: 0 auto 20px auto;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+.tagline {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #0d6efd;
+}
+
+/* Section 2: What We Do */
+.whatWeDo {
+  margin-bottom: 80px;
+}
+
+.subText {
+  max-width: 700px;
+  margin: -15px auto 40px auto;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  text-align: left;
+}
+
+.serviceCard {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.serviceCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.serviceCard h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #0f0229;
+}
+
+.iconWrapper {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+  background-color: #e7f0ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0d6efd;
+}
+
+/* Section 3: Why Choose Us */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  text-align: left;
+}
+
+.featureCard {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  border-top: 4px solid #0d6efd;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.featureCard h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #0f0229;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .featuresGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .servicesGrid {
+    grid-template-columns: 1fr;
+  }
+  .sectionTitle {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,161 @@
+/* --- Page Header --- */
+.pageHeader {
+  position: relative;
+  padding: 80px 20px;
+  background-color: #0f0229; /* Dark brand color */
+  color: #ffffff;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Optional: Add a subtle background pattern */
+.pageHeader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(13, 110, 253, 0.1) 0%, transparent 30%),
+    radial-gradient(circle at 80% 90%, rgba(13, 110, 253, 0.1) 0%, transparent 30%);
+  opacity: 0.5;
+}
+
+.headerContent {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.pageTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.pageSubtitle {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #e0e0e0;
+}
+
+/* --- Services Section --- */
+.servicesSection {
+  padding: 80px 20px;
+  background-color: #f8f9fa; /* Light grey background */
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.serviceCard {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 35px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  /* Initial state for animation */
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.servicesGrid.visible .serviceCard {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animation delays */
+.servicesGrid.visible .serviceCard:nth-child(1) { transition-delay: 0.1s; }
+.servicesGrid.visible .serviceCard:nth-child(2) { transition-delay: 0.2s; }
+.servicesGrid.visible .serviceCard:nth-child(3) { transition-delay: 0.3s; }
+.servicesGrid.visible .serviceCard:nth-child(4) { transition-delay: 0.4s; }
+.servicesGrid.visible .serviceCard:nth-child(5) { transition-delay: 0.5s; }
+.servicesGrid.visible .serviceCard:nth-child(6) { transition-delay: 0.6s; }
+
+.serviceCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(13, 110, 253, 0.1);
+}
+
+.iconWrapper {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 20px;
+  color: #0d6efd;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0f0229;
+  margin-bottom: 10px;
+}
+
+.cardDescription {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* --- Call to Action Section --- */
+.ctaSection {
+  padding: 80px 20px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #0f0229;
+  margin-bottom: 15px;
+}
+
+.ctaText {
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 14px 40px;
+  background-color: #0d6efd;
+  color: #ffffff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.ctaButton:hover {
+  background-color: #0b5ed7;
+  transform: translateY(-2px);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+  .servicesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .pageTitle {
+    font-size: 2.8rem;
+  }
+  .servicesGrid {
+    grid-template-columns: 1fr;
+  }
+}
