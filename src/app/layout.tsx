@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 //import Footer from "@/components/Footer";
 
-const inter = ({ subsets: ["latin"] });
+//const inter = ({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Upturn Opportunities",
