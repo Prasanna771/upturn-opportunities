@@ -76,7 +76,7 @@ const JobApplicationModal = ({ jobTitle, onClose }: { jobTitle: string; onClose:
         {status === 'success' ? (
           <div className={styles.successMessage}>
             <h3>✅ Application Sent!</h3>
-            <p>Thank you! We've received your application and will be in touch soon.</p>
+            <p>Thank you! We&apos;ve received your application and will be in touch soon.</p>
             <button onClick={onClose} className={styles.ctaButton}>Close</button>
           </div>
         ) : (
