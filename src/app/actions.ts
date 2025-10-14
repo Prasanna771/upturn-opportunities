@@ -3,8 +3,8 @@
 'use server';
 
 import { Resend } from 'resend';
-import { z } from 'zod';
-import nodemailer from 'nodemailer';
+//import { z } from 'zod';
+//import nodemailer from 'nodemailer';
 
 // NOTE: We are no longer initializing Resend here.
 
