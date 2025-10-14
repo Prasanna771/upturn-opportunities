@@ -69,73 +69,73 @@ export async function handleContactForm(formData: FormData) {
 
 
 
-// Define the structure of the form data
-const applySchema = z.object({
-  name: z.string().min(2, "Name is required."),
-  email: z.string().email("Invalid email address."),
-  phone: z.string().min(10, "Phone number is required."),
-  jobTitle: z.string(),
-  resume: z.instanceof(File),
-});
+// // Define the structure of the form data
+// const applySchema = z.object({
+//   name: z.string().min(2, "Name is required."),
+//   email: z.string().email("Invalid email address."),
+//   phone: z.string().min(10, "Phone number is required."),
+//   jobTitle: z.string(),
+//   resume: z.instanceof(File),
+// });
 
-export type FormState = {
-  message: string;
-  success: boolean;
-};
+// export type FormState = {
+//   message: string;
+//   success: boolean;
+// };
 
-export async function handleApplyForm(prevState: FormState, formData: FormData): Promise<FormState> {
-  // Validate form data
-  const validatedFields = applySchema.safeParse({
-    name: formData.get('name'),
-    email: formData.get('email'),
-    phone: formData.get('phone'),
-    jobTitle: formData.get('jobTitle'),
-    resume: formData.get('resume'),
-  });
+// export async function handleApplyForm(prevState: FormState, formData: FormData): Promise<FormState> {
+//   // Validate form data
+//   const validatedFields = applySchema.safeParse({
+//     name: formData.get('name'),
+//     email: formData.get('email'),
+//     phone: formData.get('phone'),
+//     jobTitle: formData.get('jobTitle'),
+//     resume: formData.get('resume'),
+//   });
 
-  if (!validatedFields.success) {
-    return {
-      message: "Please fill all required fields correctly.",
-      success: false,
-    };
-  }
+//   if (!validatedFields.success) {
+//     return {
+//       message: "Please fill all required fields correctly.",
+//       success: false,
+//     };
+//   }
 
-  const { name, email, phone, jobTitle, resume } = validatedFields.data;
+//   const { name, email, phone, jobTitle, resume } = validatedFields.data;
 
-  // IMPORTANT: Set up your email transporter
-  // Use environment variables for security
-  const transporter = nodemailer.createTransport({
-    service: 'gmail', // or another email service
-    auth: {
-      user: process.env.EMAIL_USER, // Your email address
-      pass: process.env.EMAIL_PASS, // Your email app password
-    },
-  });
+//   // IMPORTANT: Set up your email transporter
+//   // Use environment variables for security
+//   const transporter = nodemailer.createTransport({
+//     service: 'gmail', // or another email service
+//     auth: {
+//       user: process.env.EMAIL_USER, // Your email address
+//       pass: process.env.EMAIL_PASS, // Your email app password
+//     },
+//   });
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: "prasannareddy771@gmail.com", // The email where you'll receive applications
-    subject: `New Job Application for: ${jobTitle}`,
-    html: `
-      <h2>New Application Received</h2>
-      <p><strong>Position:</strong> ${jobTitle}</p>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Phone:</strong> ${phone}</p>
-    `,
-    attachments: [
-      {
-        filename: resume.name,
-        content: Buffer.from(await resume.arrayBuffer()),
-      },
-    ],
-  };
+//   const mailOptions = {
+//     from: process.env.EMAIL_USER,
+//     to: "prasannareddy771@gmail.com", // The email where you'll receive applications
+//     subject: `New Job Application for: ${jobTitle}`,
+//     html: `
+//       <h2>New Application Received</h2>
+//       <p><strong>Position:</strong> ${jobTitle}</p>
+//       <p><strong>Name:</strong> ${name}</p>
+//       <p><strong>Email:</strong> ${email}</p>
+//       <p><strong>Phone:</strong> ${phone}</p>
+//     `,
+//     attachments: [
+//       {
+//         filename: resume.name,
+//         content: Buffer.from(await resume.arrayBuffer()),
+//       },
+//     ],
+//   };
 
-  try {
-    await transporter.sendMail(mailOptions);
-    return { message: "Submitted successfully", success: true };
-  } catch (error) {
-    console.error("Failed to send email:", error);
-    return { message: "Failed to submit application. Please try again.", success: false };
-  }
-}
+//   try {
+//     await transporter.sendMail(mailOptions);
+//     return { message: "Submitted successfully", success: true };
+//   } catch (error) {
+//     console.error("Failed to send email:", error);
+//     return { message: "Failed to submit application. Please try again.", success: false };
+//   }
+// }
