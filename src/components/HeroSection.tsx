@@ -1,5 +1,3 @@
-// src/components/HeroSection.tsx
-
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
@@ -25,15 +23,18 @@ export default function HeroSection() {
     };
   }, []);
 
-  // --- Jumbly Heading Animation Logic (Unchanged) ---
+  // --- Jumbly Heading Animation Logic (FIXED) ---
   const JumblyHeading = useMemo(() => {
     if (!animateHeading) return null;
     const renderLine = (lineText: string) => {
       return lineText.split("").map((char, index) => {
-        const style: React.CSSProperties = {
+        
+        // The fix is applied here:
+        const style = {
           '--initial-rotate': `${Math.random() * 60 - 30}deg`,
           '--animation-duration': `${Math.random() * 0.5 + 1.2}s`,
-        };
+        } as React.CSSProperties; // Cast the object to the expected type.
+
         return (
           <span key={index} className="jumbly-char" style={style}>
             {char === " " ? "\u00A0" : char}
@@ -108,12 +109,9 @@ export default function HeroSection() {
         <div className="h-12"> {/* Container to prevent layout shift */}
           {AnimatedTagline}
         </div>
-
-        {/* --- REMOVED: The CTA button is gone from here --- */}
-
       </div>
 
-      {/* CSS for Jumbly Heading (Unchanged) */}
+      {/* CSS for Jumbly Heading */}
       <style jsx global>{`
         .jumbly-char {
           display: inline-block;

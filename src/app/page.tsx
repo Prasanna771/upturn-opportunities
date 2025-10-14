@@ -9,7 +9,11 @@ import AudienceSection from '../components/AudienceSection';
 import FinalCTASection from '../components/FinalCTASection';
 import Footer from '../components/Footer';
 
-export default function HomePage() {
+
+
+
+export default function HomePage()
+ {
   return (
     // CHANGED: Switched to a white background with dark text as the default
     <main className="bg-white text-gray-800">

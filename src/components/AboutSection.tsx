@@ -21,11 +21,11 @@ const IconBriefcase = () => (
 const features = [
   {
     title: "Trusted Network",
-    text: "Over the years, we’ve built a reliable ecosystem of professionals, enterprises, and partners. Our vast and diverse talent network ensures access to pre-vetted candidates who meet both technical and cultural requirements. Whether you need niche expertise or volume hiring, our network gives you an edge in a competitive market.",
+    text: "Over the years, we&apos;ve built a reliable ecosystem of professionals, enterprises, and partners. Our vast and diverse talent network ensures access to pre-vetted candidates who meet both technical and cultural requirements. Whether you need niche expertise or volume hiring, our network gives you an edge in a competitive market.",
   },
   {
     title: "Personalized Support",
-    text: "We take the time to understand your organization’s goals, culture, and challenges before recommending solutions. Every partnership begins with a detailed consultation to ensure our services align perfectly with your needs. Our dedicated team provides one-on-one support throughout the process — ensuring clarity, transparency, and measurable results.",
+    text: "We take the time to understand your organization&apos;s goals, culture, and challenges before recommending solutions. Every partnership begins with a detailed consultation to ensure our services align perfectly with your needs. Our dedicated team provides one-on-one support throughout the process — ensuring clarity, transparency, and measurable results.",
   },
   {
     title: "Quality-First Approach",
@@ -33,25 +33,31 @@ const features = [
   },
   {
     title: "End-to-End Partnership",
-    text: "From the initial consultation to post-placement follow-up, we provide complete lifecycle support. We don’t just fill positions — we build relationships that drive success. Whether it’s onboarding assistance, performance tracking, or long-term collaboration, our team stands by you at every stage of your growth journey.",
+    text: "From the initial consultation to post-placement follow-up, we provide complete lifecycle support. We don&apos;t just fill positions — we build relationships that drive success. Whether it&apos;s onboarding assistance, performance tracking, or long-term collaboration, our team stands by you at every stage of your growth journey.",
   },
 ];
 
 const AboutSection = () => {
- // const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-  const element = sectionRef.current;
-  const observer = new IntersectionObserver(callback);
+    const element = sectionRef.current;
 
-  if (element) observer.observe(element);
-  return () => {
-    if (element) observer.unobserve(element);
-  };
-}, []);
+    const observerCallback: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        setIsVisible(entry.isIntersecting);
+      });
+    };
 
-  
+    const observer = new IntersectionObserver(observerCallback, { threshold: 0.1 });
+
+    if (element) observer.observe(element);
+
+    return () => {
+      if (element) observer.unobserve(element);
+    };
+  }, []);
 
   return (
     <section 
@@ -64,7 +70,7 @@ const AboutSection = () => {
           <h2 className={styles.sectionTitle}>Who We Are</h2>
           <p className={styles.introText}>
             At Upturn Opportunities Pvt. Ltd., we believe every individual deserves the right platform to grow — and every organization deserves the right talent to thrive.
-            We’re not just a consultancy — we’re your growth partner, connecting skilled professionals with forward-thinking companies across India and beyond.
+            We&apos;re not just a consultancy — we&apos;re your growth partner, connecting skilled professionals with forward-thinking companies across India and beyond.
           </p>
           <p className={styles.tagline}>Together, we build bridges between potential and success.</p>
         </div>
@@ -78,17 +84,11 @@ const AboutSection = () => {
               <div className={styles.iconWrapper}><IconBuilding /></div>
               <h3>For Companies</h3>
               <p>We deliver pre-screened, skilled, and dependable talent that drives business outcomes.</p>
-
-                
-
             </div>
             <div className={styles.serviceCard}>
               <div className={styles.iconWrapper}><IconBriefcase /></div>
               <h3>For Job Seekers</h3>
               <p>We guide you toward roles that fit your skills, passions, and career growth aspirations.</p>
-            
-               
-
             </div>
           </div>
         </div>
