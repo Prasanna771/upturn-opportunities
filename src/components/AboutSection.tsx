@@ -42,26 +42,16 @@ const AboutSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entries[0].target);
-        }
-      },
-      { threshold: 0.1 }
-    );
+  const element = sectionRef.current;
+  const observer = new IntersectionObserver(callback);
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+  if (element) observer.observe(element);
+  return () => {
+    if (element) observer.unobserve(element);
+  };
+}, []);
 
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
+  
 
   return (
     <section 
