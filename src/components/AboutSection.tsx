@@ -1,112 +1,192 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import styles from './AboutSection.module.css';
+import React from 'react';
+import { motion, Variants } from 'framer-motion';
+import Image from 'next/image';
+import { Building2, BriefcaseBusiness } from 'lucide-react';
 
-// SVG Icons for visual appeal (Heroicons)
-const IconBuilding = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h6.375a.75.75 0 01.75.75v3.75a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75V7.5a.75.75 0 01.75-.75z" />
-  </svg>
-);
-
-const IconBriefcase = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.07a2.25 2.25 0 01-2.25 2.25H5.998a2.25 2.25 0 01-2.25-2.25v-4.07a2.25 2.25 0 01.99-1.898l7.5-4.5a2.25 2.25 0 012.52 0l7.5 4.5a2.25 2.25 0 01.99 1.898z" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M18 14.25v.003" />
-  </svg>
-);
-
-// Data for the "Why Choose Us" section
 const features = [
   {
     title: "Trusted Network",
-    text: "Over the years, we&apos;ve built a reliable ecosystem of professionals, enterprises, and partners. Our vast and diverse talent network ensures access to pre-vetted candidates who meet both technical and cultural requirements. Whether you need niche expertise or volume hiring, our network gives you an edge in a competitive market.",
+    text: "Our vast and diverse talent network ensures access to pre-vetted candidates who meet both technical and cultural requirements.",
   },
   {
     title: "Personalized Support",
-    text: "We take the time to understand your organization&apos;s goals, culture, and challenges before recommending solutions. Every partnership begins with a detailed consultation to ensure our services align perfectly with your needs. Our dedicated team provides one-on-one support throughout the process — ensuring clarity, transparency, and measurable results.",
+    text: "We take the time to understand your organization's goals, culture, and challenges to ensure our services align perfectly with your needs.",
   },
   {
     title: "Quality-First Approach",
-    text: "Excellence is at the heart of everything we do. Each candidate undergoes a multi-step screening process to validate skills, experience, and attitude. We go beyond resumes — evaluating problem-solving abilities, adaptability, and growth potential to ensure every hire is a long-term asset to your organization.",
+    text: "Each candidate undergoes a multi-step screening process to validate skills, experience, and attitude, ensuring every hire is a long-term asset.",
   },
   {
     title: "End-to-End Partnership",
-    text: "From the initial consultation to post-placement follow-up, we provide complete lifecycle support. We don&apos;t just fill positions — we build relationships that drive success. Whether it&apos;s onboarding assistance, performance tracking, or long-term collaboration, our team stands by you at every stage of your growth journey.",
+    text: "From the initial consultation to post-placement follow-up, we provide complete lifecycle support, building relationships that drive success.",
   },
 ];
 
+const sectionVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.2 } },
+};
+
+const slideInLeft: Variants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
+
+const slideInRight: Variants = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
 const AboutSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const element = sectionRef.current;
-
-    const observerCallback: IntersectionObserverCallback = (entries) => {
-      entries.forEach((entry) => {
-        setIsVisible(entry.isIntersecting);
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, { threshold: 0.1 });
-
-    if (element) observer.observe(element);
-
-    return () => {
-      if (element) observer.unobserve(element);
-    };
-  }, []);
-
   return (
-    <section 
-      ref={sectionRef} 
-      className={`${styles.aboutSection} ${isVisible ? styles.visible : ''}`}
-    >
-      <div className={styles.container}>
-        {/* Section 1: Who We Are */}
-        <div className={styles.intro}>
-          <h2 className={styles.sectionTitle}>Who We Are</h2>
-          <p className={styles.introText}>
-            At Upturn Opportunities Pvt. Ltd., we believe every individual deserves the right platform to grow — and every organization deserves the right talent to thrive.
-            We&apos;re not just a consultancy — we&apos;re your growth partner, connecting skilled professionals with forward-thinking companies across India and beyond.
+    <div className="overflow-x-hidden">
+      {/* --- Hero Section --- */}
+      <motion.section
+        className="relative h-96 md:h-[500px] flex items-center justify-start p-6 md:p-12"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <Image
+          src="/growth_chart.png"
+          alt="Diverse team meeting"
+          fill
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          priority
+        />
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="relative z-10 text-left max-w-4xl text-white">
+          <motion.h1 
+            className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          >
+            About Upturn Opportunities
+          </motion.h1>
+          <motion.p 
+            className="text-xl md:text-2xl font-light font-sans"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          >
+            Connecting Talent with Opportunity
+          </motion.p>
+        </div>
+      </motion.section>
+
+      {/* --- Main Content Sections --- */}
+      <div className="max-w-7xl mx-auto px-6 space-y-24 my-24">
+        
+        {/* --- Who We Are Section --- */}
+        <motion.section
+          className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.div variants={slideInLeft} className="text-left">
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6" style={{ color: '#17134d' }}>
+              Who We Are
+            </h2>
+            <p className="text-lg text-gray-800">
+              At Upturn Opportunities, we believe every individual deserves the right platform to grow — and every organization deserves the right talent to thrive. We're your growth partner, connecting skilled professionals with forward-thinking companies.
+            </p>
+          </motion.div>
+          <motion.div variants={slideInRight} className="text-left md:text-right">
+            <p className="text-2xl md:text-3xl font-semibold text-blue-600 border-l-4 md:border-l-0 md:border-r-4 border-blue-600 pl-6 md:pl-0 md:pr-6">
+              Together, we build bridges between potential and success.
+            </p>
+          </motion.div>
+        </motion.section>
+
+        {/* --- What We Do Section (REDESIGNED) --- */}
+        <motion.section
+          className="text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={sectionVariants}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6" style={{ color: '#17134d' }}>
+            What We Do
+          </h2>
+          <p className="text-lg text-gray-800 max-w-4xl mx-auto mb-12">
+            Our expertise spans recruitment, staffing, and career development — ensuring that both employers and candidates achieve their goals effortlessly.
           </p>
-          <p className={styles.tagline}>Together, we build bridges between potential and success.</p>
-        </div>
-
-        {/* Section 2: What We Do */}
-        <div className={styles.whatWeDo}>
-          <h2 className={styles.sectionTitle}>What We Do</h2>
-          <p className={styles.subText}>Our expertise spans across recruitment, staffing, and career development — ensuring that both employers and candidates achieve their goals effortlessly.</p>
-          <div className={styles.servicesGrid}>
-            <div className={styles.serviceCard}>
-              <div className={styles.iconWrapper}><IconBuilding /></div>
-              <h3>For Companies</h3>
-              <p>We deliver pre-screened, skilled, and dependable talent that drives business outcomes.</p>
-            </div>
-            <div className={styles.serviceCard}>
-              <div className={styles.iconWrapper}><IconBriefcase /></div>
-              <h3>For Job Seekers</h3>
-              <p>We guide you toward roles that fit your skills, passions, and career growth aspirations.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Section 3: Why Choose Us */}
-        <div className={styles.whyChooseUs}>
-          <h2 className={styles.sectionTitle}>Why Choose Us</h2>
-          <div className={styles.featuresGrid}>
-            {features.map((feature, index) => (
-              <div key={index} className={styles.featureCard}>
-                <h3>{feature.title}</h3>
-                <p>{feature.text}</p>
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            variants={sectionVariants}
+          >
+            {/* Card for Companies */}
+            <motion.div 
+              className="p-8 bg-slate-50 rounded-lg border-2 border-[#17134d] shadow-[0_0_20px_rgba(23,19,77,0.40)] text-left"
+              variants={itemVariants}
+              whileHover={{ y: -5, boxShadow: "0px 10px 35px rgba(23,19,77,0.35)" }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="text-[#17134d]"><Building2 size={40} /></div>
+                <h3 className="text-2xl font-semibold font-heading text-blue-600">For Companies</h3>
               </div>
+              <p className="text-black">We deliver pre-screened, skilled, and dependable talent that drives business outcomes.</p>
+            </motion.div>
+            {/* Card for Job Seekers */}
+            <motion.div 
+              className="p-8 bg-slate-50 rounded-lg border-2 border-[#17134d] shadow-[0_0_20px_rgba(23,19,77,0.40)] text-left"
+              variants={itemVariants}
+              whileHover={{ y: -5, boxShadow: "0px 10px 35px rgba(23,19,77,0.35)" }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="text-[#17134d]"><BriefcaseBusiness size={40} /></div>
+                <h3 className="text-2xl font-semibold font-heading text-blue-600">For Job Seekers</h3>
+              </div>
+              <p className="text-black">We guide you toward roles that fit your skills, passions, and career growth aspirations.</p>
+            </motion.div>
+          </motion.div>
+        </motion.section>
+
+        {/* --- Why Choose Us Section --- */}
+        <motion.section
+          className="text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={sectionVariants}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold font-heading mb-12" style={{ color: '#17134d' }}>
+            Why Choose Us
+          </h2>
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            variants={sectionVariants}
+          >
+            {features.map((feature, index) => (
+              <motion.div 
+                key={index} 
+                className="p-8 bg-slate-50 rounded-lg border-2 border-[#17134d] shadow-[0_0_20px_rgba(23,19,77,0.40)] text-left"
+                variants={itemVariants}
+                whileHover={{ y: -5, boxShadow: "0px 10px 35px rgba(23,19,77,0.35)" }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <h3 className="text-2xl font-semibold font-heading mb-3 text-blue-600">{feature.title}</h3>
+                <p className="text-black">{feature.text}</p>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.section>
+
       </div>
-    </section>
+    </div>
   );
 };
 

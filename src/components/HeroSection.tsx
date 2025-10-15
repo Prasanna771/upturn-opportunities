@@ -1,21 +1,20 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 
 export default function HeroSection() {
-  // --- Text content for the hero section ---
-  const headingLine1 = "Your Ambition, Our Expertise.";
-  const headingLine2 = "One Shared Vision.";
+  const headingLine1 = "Your Ambition";
+  const headingLine2 = "Our Expertise";
+  const headingLine3 = "One Shared Vision.";
   const fullTagline = "Consulting with Clarity. Recruiting with Purpose.";
 
-  // --- Animation trigger states ---
   const [animateHeading, setAnimateHeading] = useState(false);
   const [animateTagline, setAnimateTagline] = useState(false);
 
   useEffect(() => {
     const headingTimer = setTimeout(() => setAnimateHeading(true), 200);
-    const taglineTimer = setTimeout(() => setAnimateTagline(true), 1800);
+    const taglineTimer = setTimeout(() => setAnimateTagline(true), 2200);
 
     return () => {
       clearTimeout(headingTimer);
@@ -23,17 +22,14 @@ export default function HeroSection() {
     };
   }, []);
 
-  // --- Jumbly Heading Animation Logic (FIXED) ---
   const JumblyHeading = useMemo(() => {
     if (!animateHeading) return null;
     const renderLine = (lineText: string) => {
       return lineText.split("").map((char, index) => {
-        
-        // The fix is applied here:
         const style = {
           '--initial-rotate': `${Math.random() * 60 - 30}deg`,
           '--animation-duration': `${Math.random() * 0.5 + 1.2}s`,
-        } as React.CSSProperties; // Cast the object to the expected type.
+        } as React.CSSProperties;
 
         return (
           <span key={index} className="jumbly-char" style={style}>
@@ -46,38 +42,44 @@ export default function HeroSection() {
       <>
         <span className="block">{renderLine(headingLine1)}</span>
         <span className="block">{renderLine(headingLine2)}</span>
+        {/* CHANGED: Removed the accent color from the third line */}
+        <span className="block">{renderLine(headingLine3)}</span>
       </>
     );
-  }, [animateHeading, headingLine1, headingLine2]);
+  }, [animateHeading]);
 
-  // --- Animated Tagline with Framer Motion ---
-  const taglineVariants = {
+  const taglineVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.03,
+        staggerChildren: 0.05, // Slightly adjusted stagger for the new effect
       },
     },
   };
 
-  const wordVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+  // CHANGED: wordVariants now animates from left to right (x-axis)
+  const wordVariants: Variants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { type: 'spring', stiffness: 100 }
+    },
   };
 
   const AnimatedTagline = (
     <AnimatePresence>
       {animateTagline && (
         <motion.p
-          className="text-2xl md:text-3xl text-gray-200 font-medium"
+          className="text-xl sm:text-2xl md:text-3xl text-gray-200 font-medium"
           variants={taglineVariants}
           initial="hidden"
           animate="visible"
           exit="hidden"
         >
           {fullTagline.split(" ").map((word, index) => (
-            <motion.span key={index} variants={wordVariants} className="inline-block mr-2">
+            <motion.span key={index} variants={wordVariants} className="inline-block mr-3">
               {word}
             </motion.span>
           ))}
@@ -87,31 +89,33 @@ export default function HeroSection() {
   );
 
   return (
-    <div className="relative flex flex-col items-center justify-center text-center min-h-screen overflow-hidden">
+    <div className="relative flex items-center justify-center min-h-screen overflow-hidden">
       {/* Background Container */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/background.jpg"
+          src="/background2.jpg"
           alt="Professionals in a modern office environment"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
         />
         <div className="absolute inset-0 bg-black opacity-60"></div>
       </div>
 
       {/* Foreground Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
-        <h1 className="text-5xl md:text-7xl font-extrabold text-blue-400 mb-8 drop-shadow-lg leading-tight">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 text-left">
+        <h1 
+          className="text-5xl sm:text-6xl md:text-8xl font-extrabold text-white mb-8 drop-shadow-lg leading-none"
+        >
           {JumblyHeading}
         </h1>
 
-        <div className="h-12"> {/* Container to prevent layout shift */}
+        <div className="h-12">
           {AnimatedTagline}
         </div>
       </div>
 
-      {/* CSS for Jumbly Heading */}
+      {/* CSS for Jumbly Heading (Unchanged) */}
       <style jsx global>{`
         .jumbly-char {
           display: inline-block;

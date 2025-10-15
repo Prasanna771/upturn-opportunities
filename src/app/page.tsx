@@ -7,7 +7,7 @@ import ServicesSection from '../components/ServicesSection';
 import ApproachSection from '../components/ApproachSection';
 import AudienceSection from '../components/AudienceSection';
 import FinalCTASection from '../components/FinalCTASection';
-import Footer from '../components/Footer';
+import ClientLogosSection from '../components/ClientLogosSection';
 
 
 
@@ -25,10 +25,11 @@ export default function HomePage()
         <ServicesSection />
         <ApproachSection />
         <AudienceSection />
+        <ClientLogosSection /> 
         <FinalCTASection />
       </div>
 
-      <Footer />
+     
     </main>
   );
 }

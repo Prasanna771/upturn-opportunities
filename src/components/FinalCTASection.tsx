@@ -1,30 +1,54 @@
-// src/components/FinalCTASection.tsx
-
 "use client";
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2, delayChildren: 0.2 },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  },
+};
 
 export default function FinalCTASection() {
     return (
         <motion.section 
-            className="py-24 my-16 text-center bg-gray-800 rounded-lg"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            // CHANGED: Background is now a light blue to make it stand out
+            className="py-24 my-16 text-center bg-blue-50 rounded-lg"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
         >
             <div className="max-w-3xl mx-auto px-6">
-                <h2 className="text-4xl md:text-5xl font-bold text-blue-400 mb-6">
+                <motion.h2 
+                    className="text-4xl md:text-5xl font-bold mb-6 font-heading"
+                    style={{ color: '#17134d' }}
+                    variants={itemVariants}
+                >
                     Ready to Realize Your Vision?
-                </h2>
-                <p className="text-lg md:text-xl text-slate-300 mb-10">
-                    Let&#39;s start the conversation. Whether you&#39;re looking to transform your business or take the next step in your career, our team is ready to help you achieve the exceptional.
-                </p>
-                <a
+                </motion.h2>
+                <motion.p 
+                    className="text-lg md:text-xl text-gray-800 mb-10"
+                    variants={itemVariants}
+                >
+                    Let's start the conversation. Whether you're looking to transform your business or take the next step in your career, our team is ready to help you achieve the exceptional.
+                </motion.p>
+                <motion.a
                     href="/contact"
-                    className="px-10 py-4 bg-blue-600 text-white font-semibold text-lg rounded-lg shadow-lg hover:bg-blue-700 hover:scale-105 transition-transform duration-300"
+                    className="inline-block px-10 py-4 bg-blue-600 text-white font-semibold text-lg rounded-lg shadow-lg hover:bg-blue-700 hover:scale-105 transition-transform duration-300 font-heading"
+                    variants={itemVariants}
                 >
                     Schedule a Consultation
-                </a>
+                </motion.a>
             </div>
         </motion.section>
     );
