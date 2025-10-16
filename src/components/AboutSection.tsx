@@ -3,8 +3,9 @@
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
-import { Building2, BriefcaseBusiness } from 'lucide-react';
+import { Building2, BriefcaseBusiness } from 'lucide-react'; 
 
+// Data for the "Why Choose Us" section
 const features = [
   {
     title: "Trusted Network",
@@ -24,6 +25,7 @@ const features = [
   },
 ];
 
+// --- Animation Variants ---
 const sectionVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.2 } },
@@ -46,8 +48,9 @@ const itemVariants: Variants = {
 
 const AboutSection = () => {
   return (
-    <div className="overflow-x-hidden">
-      {/* --- Hero Section --- */}
+    // CHANGED: Added dark mode background
+    <div className="overflow-x-hidden bg-white dark:bg-black">
+      {/* --- Hero Section (already dark mode compatible) --- */}
       <motion.section
         className="relative h-96 md:h-[500px] flex items-center justify-start p-6 md:p-12"
         initial={{ opacity: 0 }}
@@ -94,10 +97,10 @@ const AboutSection = () => {
           viewport={{ once: true, amount: 0.3 }}
         >
           <motion.div variants={slideInLeft} className="text-left">
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6" style={{ color: '#17134d' }}>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 text-[#17134d] dark:text-white">
               Who We Are
             </h2>
-            <p className="text-lg text-gray-800">
+            <p className="text-lg text-gray-800 dark:text-gray-300">
               At Upturn Opportunities, we believe every individual deserves the right platform to grow — and every organization deserves the right talent to thrive. We're your growth partner, connecting skilled professionals with forward-thinking companies.
             </p>
           </motion.div>
@@ -108,7 +111,7 @@ const AboutSection = () => {
           </motion.div>
         </motion.section>
 
-        {/* --- What We Do Section (REDESIGNED) --- */}
+        {/* --- What We Do Section --- */}
         <motion.section
           className="text-center"
           initial="hidden"
@@ -116,10 +119,10 @@ const AboutSection = () => {
           viewport={{ once: true, amount: 0.3 }}
           variants={sectionVariants}
         >
-          <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6" style={{ color: '#17134d' }}>
+          <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 text-[#17134d] dark:text-white">
             What We Do
           </h2>
-          <p className="text-lg text-gray-800 max-w-4xl mx-auto mb-12">
+          <p className="text-lg text-gray-800 dark:text-gray-300 max-w-4xl mx-auto mb-12">
             Our expertise spans recruitment, staffing, and career development — ensuring that both employers and candidates achieve their goals effortlessly.
           </p>
           <motion.div 
@@ -128,29 +131,29 @@ const AboutSection = () => {
           >
             {/* Card for Companies */}
             <motion.div 
-              className="p-8 bg-slate-50 rounded-lg border-2 border-[#17134d] shadow-[0_0_20px_rgba(23,19,77,0.40)] text-left"
+              className="p-8 bg-slate-50 dark:bg-gray-800 rounded-lg border-2 border-[#17134d] dark:border-blue-800 shadow-[0_0_20px_rgba(23,19,77,0.40)] dark:shadow-[0_0_20px_rgba(59,130,246,0.25)] text-left"
               variants={itemVariants}
               whileHover={{ y: -5, boxShadow: "0px 10px 35px rgba(23,19,77,0.35)" }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="text-[#17134d]"><Building2 size={40} /></div>
+                <div className="text-[#17134d] dark:text-blue-500"><Building2 size={40} /></div>
                 <h3 className="text-2xl font-semibold font-heading text-blue-600">For Companies</h3>
               </div>
-              <p className="text-black">We deliver pre-screened, skilled, and dependable talent that drives business outcomes.</p>
+              <p className="text-black dark:text-gray-300">We deliver pre-screened, skilled, and dependable talent that drives business outcomes.</p>
             </motion.div>
             {/* Card for Job Seekers */}
             <motion.div 
-              className="p-8 bg-slate-50 rounded-lg border-2 border-[#17134d] shadow-[0_0_20px_rgba(23,19,77,0.40)] text-left"
+              className="p-8 bg-slate-50 dark:bg-gray-800 rounded-lg border-2 border-[#17134d] dark:border-blue-800 shadow-[0_0_20px_rgba(23,19,77,0.40)] dark:shadow-[0_0_20px_rgba(59,130,246,0.25)] text-left"
               variants={itemVariants}
               whileHover={{ y: -5, boxShadow: "0px 10px 35px rgba(23,19,77,0.35)" }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="text-[#17134d]"><BriefcaseBusiness size={40} /></div>
+                <div className="text-[#17134d] dark:text-blue-500"><BriefcaseBusiness size={40} /></div>
                 <h3 className="text-2xl font-semibold font-heading text-blue-600">For Job Seekers</h3>
               </div>
-              <p className="text-black">We guide you toward roles that fit your skills, passions, and career growth aspirations.</p>
+              <p className="text-black dark:text-gray-300">We guide you toward roles that fit your skills, passions, and career growth aspirations.</p>
             </motion.div>
           </motion.div>
         </motion.section>
@@ -163,7 +166,7 @@ const AboutSection = () => {
           viewport={{ once: true, amount: 0.3 }}
           variants={sectionVariants}
         >
-          <h2 className="text-4xl md:text-5xl font-bold font-heading mb-12" style={{ color: '#17134d' }}>
+          <h2 className="text-4xl md:text-5xl font-bold font-heading mb-12 text-[#17134d] dark:text-white">
             Why Choose Us
           </h2>
           <motion.div 
@@ -173,13 +176,13 @@ const AboutSection = () => {
             {features.map((feature, index) => (
               <motion.div 
                 key={index} 
-                className="p-8 bg-slate-50 rounded-lg border-2 border-[#17134d] shadow-[0_0_20px_rgba(23,19,77,0.40)] text-left"
+                className="p-8 bg-slate-50 dark:bg-gray-800 rounded-lg border-2 border-[#17134d] dark:border-blue-800 shadow-[0_0_20px_rgba(23,19,77,0.40)] dark:shadow-[0_0_20px_rgba(59,130,246,0.25)] text-left"
                 variants={itemVariants}
                 whileHover={{ y: -5, boxShadow: "0px 10px 35px rgba(23,19,77,0.35)" }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <h3 className="text-2xl font-semibold font-heading mb-3 text-blue-600">{feature.title}</h3>
-                <p className="text-black">{feature.text}</p>
+                <p className="text-black dark:text-gray-300">{feature.text}</p>
               </motion.div>
             ))}
           </motion.div>

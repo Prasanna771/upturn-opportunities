@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, Variants } from 'framer-motion';
+import React from 'react';
 
 export default function HeroSection() {
   const headingLine1 = "Your Ambition";
@@ -42,46 +43,39 @@ export default function HeroSection() {
       <>
         <span className="block">{renderLine(headingLine1)}</span>
         <span className="block">{renderLine(headingLine2)}</span>
-        {/* CHANGED: Removed the accent color from the third line */}
         <span className="block">{renderLine(headingLine3)}</span>
       </>
     );
   }, [animateHeading]);
 
+  // --- The AnimatedTagline is defined here, with the smaller font sizes ---
   const taglineVariants: Variants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05, // Slightly adjusted stagger for the new effect
-      },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.05 } },
   };
 
-  // CHANGED: wordVariants now animates from left to right (x-axis)
   const wordVariants: Variants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { type: 'spring', stiffness: 100 }
-    },
+    visible: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 100 } },
   };
 
   const AnimatedTagline = (
     <AnimatePresence>
       {animateTagline && (
         <motion.p
-          className="text-xl sm:text-2xl md:text-3xl text-gray-200 font-medium"
+          className="text-lg sm:text-xl md:text-2xl text-gray-200 font-medium"
           variants={taglineVariants}
           initial="hidden"
           animate="visible"
           exit="hidden"
         >
           {fullTagline.split(" ").map((word, index) => (
-            <motion.span key={index} variants={wordVariants} className="inline-block mr-3">
-              {word}
-            </motion.span>
+            <React.Fragment key={index}>
+              <motion.span variants={wordVariants} className="inline-block">
+                {word}
+              </motion.span>
+              {' '}
+            </React.Fragment>
           ))}
         </motion.p>
       )}
@@ -105,17 +99,18 @@ export default function HeroSection() {
       {/* Foreground Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 text-left">
         <h1 
-          className="text-5xl sm:text-6xl md:text-8xl font-extrabold text-white mb-8 drop-shadow-lg leading-none"
+          className="text-4xl sm:text-6xl lg:text-8xl font-extrabold text-white mb-8 drop-shadow-lg leading-none font-heading"
         >
           {JumblyHeading}
         </h1>
 
+        {/* --- And the AnimatedTagline is rendered here --- */}
         <div className="h-12">
           {AnimatedTagline}
         </div>
       </div>
 
-      {/* CSS for Jumbly Heading (Unchanged) */}
+      {/* CSS for Jumbly Heading */}
       <style jsx global>{`
         .jumbly-char {
           display: inline-block;

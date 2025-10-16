@@ -21,8 +21,8 @@ const itemVariants: Variants = {
 export default function FinalCTASection() {
     return (
         <motion.section 
-            // CHANGED: Background is now a light blue to make it stand out
-            className="py-24 my-16 text-center bg-blue-50 rounded-lg"
+            // CHANGED: Adjusted margin and added dark mode background
+            className="py-24 mt-16 text-center bg-blue-50 dark:bg-gray-800 rounded-lg"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -30,14 +30,15 @@ export default function FinalCTASection() {
         >
             <div className="max-w-3xl mx-auto px-6">
                 <motion.h2 
-                    className="text-4xl md:text-5xl font-bold mb-6 font-heading"
-                    style={{ color: '#17134d' }}
+                    // CHANGED: Replaced inline style with classes for dark mode support
+                    className="text-4xl md:text-5xl font-bold mb-6 font-heading text-[#17134d] dark:text-white"
                     variants={itemVariants}
                 >
                     Ready to Realize Your Vision?
                 </motion.h2>
                 <motion.p 
-                    className="text-lg md:text-xl text-gray-800 mb-10"
+                    // CHANGED: Added dark mode text color
+                    className="text-lg md:text-xl text-gray-800 dark:text-gray-300 mb-10"
                     variants={itemVariants}
                 >
                     Let's start the conversation. Whether you're looking to transform your business or take the next step in your career, our team is ready to help you achieve the exceptional.

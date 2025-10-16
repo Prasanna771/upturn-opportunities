@@ -1,17 +1,15 @@
 "use client";
 
-// CHANGED: Corrected the import statements
 import React, { useEffect, useRef, useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
-
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { handleContactForm, FormState } from '@/app/actions';
 import { Linkedin, Instagram, Mail, Phone, MapPin, Clock } from 'lucide-react';
 
 // --- Reusable Submit Button ---
 function SubmitButton() {
-  const { pending } = useFormStatus(); // This will now work correctly
+  const { pending } = useFormStatus();
   return (
     <button 
       type="submit" 
@@ -35,7 +33,8 @@ export default function ContactPage() {
   }, [state]);
 
   return (
-    <main>
+    <main className="bg-white dark:bg-black">
+      
       {/* --- Hero Header --- */}
       <motion.header 
         className="relative h-96 md:h-[500px] flex items-center text-white"
@@ -44,7 +43,7 @@ export default function ContactPage() {
         transition={{ duration: 1 }}
       >
         <Image
-          src="/contact-header.jpg"
+          src="/images/contact-header.jpg"
           alt="Get in touch with us"
           fill
           className="object-cover"
@@ -58,99 +57,127 @@ export default function ContactPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            <h1 className="text-4xl md:text-6xl font-bold font-heading leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading leading-tight">
               Get in Touch
             </h1>
-            <p className="mt-4 text-lg md:text-xl">
+            <p className="mt-4 text-md md:text-lg lg:text-xl">
               We’d love to hear from you! Whether you have a question about our services or need support, our team is ready to answer all your questions.
             </p>
           </motion.div>
         </div>
       </motion.header>
 
+      {/* --- Centered Content Container --- */}
       <div className="max-w-7xl mx-auto px-6 py-16 space-y-20">
-        {/* --- Contact Info Grid --- */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-            <div className="p-6">
-                <Mail size={40} className="mx-auto mb-4 text-blue-600"/>
-                <h3 className="text-xl font-bold font-heading mb-2" style={{color: '#17134d'}}>Email</h3>
-                <p className="text-black">support@upturnopportunities.com</p>
-            </div>
-            <div className="p-6">
-                <Phone size={40} className="mx-auto mb-4 text-blue-600"/>
-                <h3 className="text-xl font-bold font-heading mb-2" style={{color: '#17134d'}}>Phone</h3>
-                <p className="text-black">+91 95734 15317</p>
-            </div>
-            <div className="p-6">
-                <MapPin size={40} className="mx-auto mb-4 text-blue-600"/>
-                <h3 className="text-xl font-bold font-heading mb-2" style={{color: '#17134d'}}>Address</h3>
-                <p className="text-black">15-5-25/1, Brundhavan colony, Siddipet, Telangana, India</p>
-            </div>
-            <div className="p-6">
-                <Clock size={40} className="mx-auto mb-4 text-blue-600"/>
-                <h3 className="text-xl font-bold font-heading mb-2" style={{color: '#17134d'}}>Office Hours</h3>
-                <p className="text-black">Mon-Fri: 9am-6pm<br/>Sat: 10am-2pm</p>
-            </div>
-        </section>
-
-        {/* --- Form Section --- */}
-        <section className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4" style={{ color: '#17134d' }}>
-            Send a Direct Message
-          </h2>
-          <p className="text-lg text-black max-w-2xl mx-auto mb-12">
-            Have a question, partnership inquiry, or need recruitment support? Fill out the contact form and our team will get back to you within one business day.
-          </p>
+        
+        {/* --- Two-Column Layout for Info and Form --- */}
+        <section className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-16 items-start">
           
-          <form ref={formRef} action={formAction} className="space-y-6 bg-slate-50 p-8 rounded-lg shadow-md max-w-xl mx-auto text-left">
-            <div>
-              <label htmlFor="name" className="block font-semibold text-gray-800 mb-2">Full Name</label>
-              <input type="text" id="name" name="name" required className="w-full p-3 border border-gray-300 rounded-md" />
-            </div>
-            <div>
-              <label htmlFor="email" className="block font-semibold text-gray-800 mb-2">Email Address</label>
-              <input type="email" id="email" name="email" required className="w-full p-3 border border-gray-300 rounded-md" />
-            </div>
-            <div>
-              <label htmlFor="phone" className="block font-semibold text-gray-800 mb-2">Phone Number</label>
-              <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" title="Please enter a 10-digit phone number" className="w-full p-3 border border-gray-300 rounded-md" />
-            </div>
-            <div>
-              <label htmlFor="message" className="block font-semibold text-gray-800 mb-2">Message</label>
-              <textarea id="message" name="message" rows={5} required className="w-full p-3 border border-gray-300 rounded-md"></textarea>
-            </div>
-            <SubmitButton />
-            
-            {state.message && (
-              <div className={`mt-4 text-center font-semibold ${state.success ? 'text-green-600' : 'text-red-600'}`}>
-                {state.message}
+          {/* Left Column: Contact Info */}
+          <div className="md:col-span-2 space-y-8 md:mt-10">
+            <div className="flex items-start gap-4">
+              <Mail size={32} className="text-blue-600 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="text-xl font-bold font-heading text-[#17134d] dark:text-white">Email</h3>
+                <p className="text-black dark:text-gray-300">support@upturnopportunities.com</p>
               </div>
-            )}
-          </form>
-        </section>
+            </div>
+            <div className="flex items-start gap-4">
+              <Phone size={32} className="text-blue-600 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="text-xl font-bold font-heading text-[#17134d] dark:text-white">Phone</h3>
+                <p className="text-black dark:text-gray-300">+91 95734 15317</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <MapPin size={32} className="text-blue-600 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="text-xl font-bold font-heading text-[#17134d] dark:text-white">Address</h3>
+                <p className="text-black dark:text-gray-300">
+                  15-5-25/1, Brundhavan Colony, Siddipet, Telangana, India
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <Clock size={32} className="text-blue-600 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="text-xl font-bold font-heading text-[#17134d] dark:text-white">Office Hours</h3>
+                <p className="text-black dark:text-gray-300">
+                  Mon-Fri: 9am-6pm<br/>Sat: 10am-2pm
+                </p>
+              </div>
+            </div>
+          </div>
 
-        {/* --- Social Section --- */}
-        <section className="text-center py-16 bg-blue-50 rounded-lg">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4" style={{ color: '#17134d' }}>
-              Let's Connect
+          {/* Right Column: Form */}
+          <div className="md:col-span-3 max-w-xl mx-auto">
+            <h2 className="text-3xl font-bold font-heading mb-2 text-[#17134d] dark:text-white">
+              Send Us a Message
             </h2>
-            <p className="text-lg text-black max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-black dark:text-gray-300 mb-6">
+              Have a question or inquiry? Fill out the form and our team will get back to you.
+            </p>
+            <form 
+              ref={formRef} 
+              action={formAction} 
+              className="space-y-6 bg-slate-50 dark:bg-gray-800 p-6 md:p-8 rounded-lg shadow-md text-left"
+            >
+              <div>
+                <label htmlFor="name" className="block font-semibold text-gray-800 dark:text-gray-200 mb-2">Full Name</label>
+                <input type="text" id="name" name="name" required className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
+              </div>
+              <div>
+                <label htmlFor="email" className="block font-semibold text-gray-800 dark:text-gray-200 mb-2">Email Address</label>
+                <input type="email" id="email" name="email" required className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
+              </div>
+              <div>
+                <label htmlFor="phone" className="block font-semibold text-gray-800 dark:text-gray-200 mb-2">Phone Number</label>
+                <div className="flex">
+                  <select name="countryCode" className="p-3 border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-md bg-gray-100 dark:bg-gray-600 text-black dark:text-white">
+                    <option>IN +91</option>
+                    <option>US +1</option>
+                  </select>
+                  <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" title="Please enter a 10-digit phone number" className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-r-md bg-white dark:bg-gray-700 text-black dark:text-white" />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="message" className="block font-semibold text-gray-800 dark:text-gray-200 mb-2">Message</label>
+                <textarea id="message" name="message" rows={4} required className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"></textarea>
+              </div>
+              <SubmitButton />
+              
+              {state.message && (
+                <div className={`mt-4 text-center font-semibold ${state.success ? 'text-green-600' : 'text-red-500'}`}>
+                  {state.message}
+                </div>
+              )}
+            </form>
+          </div>
+        </section>
+      </div>
+
+      {/* --- Social Section (Full-Width) --- */}
+      <section className="text-center py-16 bg-blue-50 dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-6">
+            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-[#17134d] dark:text-white">
+              Stay Connected
+            </h2>
+            <p className="text-lg text-black dark:text-gray-300 max-w-2xl mx-auto mb-8">
               Stay connected with us on social platforms to get updates on job openings, career tips, and industry insights.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-8">
-                <a href="https://www.linkedin.com/in/vinayredde" target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-gray-800 hover:text-blue-700 transition-colors">
+                <a href="https://www.linkedin.com/in/vinayredde" target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-gray-800 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-500 transition-colors">
                     LinkedIn
                 </a>
-                <a href="https://www.instagram.com/bommidi_prasanna" target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-gray-800 hover:text-pink-600 transition-colors">
+                <a href="https://www.instagram.com/bommidi_prasanna" target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-gray-800 dark:text-gray-200 hover:text-pink-600 transition-colors">
                     Instagram
                 </a>
-                <a href="mailto:prasannareddy771@gmail.com" className="text-lg font-semibold text-gray-800 hover:text-red-600 transition-colors">
+                <a href="mailto:prasannareddy771@gmail.com" className="text-lg font-semibold text-gray-800 dark:text-gray-200 hover:text-red-600 transition-colors">
                     Email
                 </a>
             </div>
-        </section>
-
-      </div>
+        </div>
+      </section>
     </main>
   );
 }

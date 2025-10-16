@@ -6,29 +6,42 @@ import Image from 'next/image';
 
 // --- Service Data with Image Paths ---
 const services = [
-  { imageSrc: "/images/services/it-staffing.jpg", title: "IT Staffing Solutions", description: "We specialize in connecting companies with top-tier IT talent, ensuring you have access to pre-vetted candidates who match your technical needs and company culture." },
-  { imageSrc: "/images/services/rpo.jpg", title: "Recruitment Process Outsourcing (RPO)", description: "Our RPO services allow you to outsource the entire recruitment process. We manage the hiring lifecycle efficiently, reducing your time-to-hire while ensuring quality." },
-  { imageSrc: "/images/services/cloud-hiring.jpg", title: "Cloud & Technology Hiring", description: "We focus on sourcing candidates skilled in cloud platforms like AWS, Azure, and Google Cloud, as well as DevOps, AI/ML, and other emerging tech domains." },
-  { imageSrc: "/images/services/contract-staffing.jpg", title: "Contract & Permanent Staffing", description: "Whether you require temporary staff for short-term projects or permanent hires for strategic roles, we provide flexible and reliable staffing support to keep your business moving." },
-  { imageSrc: "/images/services/executive-search.jpg", title: "Executive Search & Leadership Hiring", description: "Finding the right leaders is critical. Our executive search service identifies and engages senior-level professionals who align with your organization’s vision and leadership needs." },
-  { imageSrc: "/images/services/talent-consultation.jpg", title: "Talent Consultation & Advisory", description: "Beyond recruitment, we provide talent strategy consultation to help you optimize workforce planning, skills development, and retention strategies for the long term." },
+  { imageSrc: "/images/services/it-staffing.jpg", title: "IT Staffing Solutions", description: "At Upturn Opportunities, we specialize in connecting organizations with top-tier IT professionals who are not only technically proficient but also a perfect cultural fit. Our team carefully vets every candidate through technical assessments and behavioral interviews to ensure your business gains reliable, skilled, and ready-to-contribute talent. Whether you’re building a development team, scaling IT operations, or hiring for niche technologies, we help you find the right match — faster and smarter." },
+  { imageSrc: "/images/services/rpo.jpg", title: "Recruitment Process Outsourcing (RPO)", description: "Our Recruitment Process Outsourcing (RPO) model lets you focus on your core business while we manage the entire hiring lifecycle — from talent sourcing and screening to onboarding and post-hire follow-up. Acting as an extension of your HR team, we integrate proven recruitment strategies, tools, and networks to deliver cost-effective, scalable, and quality-driven hiring solutions. With our RPO services, you can significantly reduce time-to-hire, improve candidate quality, and strengthen your employer brand." },
+  { imageSrc: "/images/services/cloud-hiring.jpg", title: "Cloud & Technology Hiring", description: "In today’s digital-first world, success depends on having the right technology talent. Our Cloud and Technology Hiring services specialize in sourcing experts across platforms like Microsoft Azure, Amazon Web Services (AWS), and Google Cloud Platform (GCP). From DevOps engineers to AI/ML specialists, data scientists, and cybersecurity professionals, we connect you with skilled individuals who drive digital transformation and innovation. Our deep technical expertise ensures every candidate we recommend can add value from day one." },
+  { imageSrc: "/images/services/contract-staffing.jpg", title: "Contract & Permanent Staffing", description: "Every organization has unique workforce needs — and we’re here to meet them all through our Contract and Permanent Staffing solutions. Whether you need contract-based professionals for short-term projects or permanent hires for long-term success, we offer flexible staffing options aligned with your business objectives. We handle sourcing, background verification, payroll support, and compliance, ensuring a smooth and transparent hiring process that delivers dependable talent quickly and efficiently." },
+  { imageSrc: "/images/services/executive-search.jpg", title: "Executive Search & Leadership Hiring", description: "Leadership defines culture, direction, and organizational success — and finding the right leaders requires precision. Through our Executive Search and Leadership Hiring services, we identify, attract, and engage senior professionals who align with your company’s mission, values, and vision. By combining market intelligence, discreet networking, and comprehensive evaluation, we connect you with visionary leaders who can drive innovation, growth, and long-term success." },
+  { imageSrc: "/images/services/talent-consultation.jpg", title: "Talent Consultation & Advisory", description: "At Upturn Opportunities, we go beyond recruitment with our Talent Consultation and Advisory services. We help organizations develop sustainable talent strategies that align with their long-term goals. From workforce planning and skills gap analysis to succession planning and retention strategies, we provide actionable insights to strengthen your human capital. As your trusted advisors, we ensure your workforce remains competitive, agile, and future-ready in an ever-evolving market." },
 ];
 
-// --- NEW Animation Variants for side-sliding effect ---
-const slideInLeft: Variants = {
-  hidden: { opacity: 0, x: -100 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] } },
+// --- Animation Variants ---
+const containerSlideInLeft: Variants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { 
+    opacity: 1, 
+    x: 0, 
+    transition: { duration: 0.7, ease: "easeOut", staggerChildren: 0.2 } 
+  },
 };
 
-const slideInRight: Variants = {
-  hidden: { opacity: 0, x: 100 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] } },
+const containerSlideInRight: Variants = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { 
+    opacity: 1, 
+    x: 0, 
+    transition: { duration: 0.7, ease: "easeOut", staggerChildren: 0.2 } 
+  },
+};
+
+const itemFadeIn: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
 export default function ServicesPage() {
   return (
-    <main className="bg-white overflow-x-hidden">
-      {/* --- Page Header (Unchanged) --- */}
+    <main className="bg-white dark:bg-black overflow-x-hidden">
+      {/* --- Page Header --- */}
       <motion.header 
         className="relative h-96 md:h-[500px] flex items-center justify-start text-white p-6 md:p-12"
         initial={{ opacity: 0 }}
@@ -63,44 +76,45 @@ export default function ServicesPage() {
         </div>
       </motion.header>
 
-      {/* --- Services Alternating Layout (REDESIGNED) --- */}
-      <section className="py-24 max-w-7xl mx-auto px-6 space-y-16 md:space-y-24">
+      {/* --- Services Alternating Grid --- */}
+      <section className="py-24 max-w-7xl mx-auto px-6 space-y-24">
         {services.map((service, index) => (
-          // This wrapper handles the left/right alignment
-          <div key={service.title} className={`flex w-full ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
-            <motion.div
-              className="w-full md:w-3/4 lg:w-2/3 bg-slate-50 rounded-lg overflow-hidden flex flex-col border border-[#17134d] shadow-[0_0_20px_rgba(23,19,77,0.40)]"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={index % 2 === 0 ? slideInLeft : slideInRight}
-              whileHover={{ y: -5, boxShadow: "0px 10px 35px rgba(23,19,77,0.35)" }}
-              transition={{ type: "spring", stiffness: 300 }}
+          <motion.div
+            key={service.title}
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={index % 2 === 0 ? containerSlideInLeft : containerSlideInRight}
+          >
+            {/* Image Column */}
+            <motion.div 
+              className={`relative w-full h-80 rounded-2xl overflow-hidden shadow-xl ${index % 2 !== 0 ? 'md:order-last' : ''}`}
+              variants={itemFadeIn}
             >
-              {/* Image at the top of the card */}
-              <div className="relative w-full h-56">
-                <Image
-                  src={service.imageSrc}
-                  alt={service.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              
-              {/* Text content in the card body */}
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 
-                  className="text-2xl font-bold font-heading mb-3" 
-                  style={{ color: '#17134d' }}
-                >
-                  {service.title}
-                </h3>
-                <p className="text-black text-base leading-relaxed flex-grow">
-                  {service.description}
-                </p>
-              </div>
+              <Image
+                src={service.imageSrc}
+                alt={service.title}
+                fill
+                className="object-cover transition-transform duration-300 ease-in-out hover:scale-105"
+              />
             </motion.div>
-          </div>
+            
+            {/* Text Content Column */}
+            <motion.div 
+              className="p-8 bg-slate-50 dark:bg-gray-800 rounded-lg border border-[#17134d] dark:border-blue-800 shadow-[0_0_20px_rgba(23,19,77,0.40)] dark:shadow-[0_0_20px_rgba(59,130,246,0.25)]"
+              variants={itemFadeIn}
+            >
+              <h3 
+                className="text-3xl font-bold font-heading mb-4 text-[#17134d] dark:text-white"
+              >
+                {service.title}
+              </h3>
+              <p className="text-black dark:text-gray-300 text-lg leading-relaxed">
+                {service.description}
+              </p>
+            </motion.div>
+          </motion.div>
         ))}
       </section>
     </main>
