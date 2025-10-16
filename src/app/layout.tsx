@@ -24,7 +24,11 @@ export const metadata: Metadata = {
     icon: "/favicon-32x32.png",
   },
   description: "Connecting skilled IT professionals with top U.S. companies",
-};
+  other: {
+      'color-scheme': 'light only',
+      "theme-color": "#ffffff",
+},
+}
 
 export default function RootLayout({
   children,
