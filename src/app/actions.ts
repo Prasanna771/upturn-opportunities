@@ -19,7 +19,7 @@ export async function handleContactForm(
   const message = formData.get('message') as string;
 
   if (!name || !email || !phone || !message) {
-    return { success: false, message: "Please fill out all required fields." };
+    return { success: false, message: "Please fill out all fields." };
   }
 
   const apiKey = process.env.RESEND_API_KEY;

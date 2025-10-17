@@ -87,7 +87,7 @@ export default function HeroSection() {
       {/* Background Container */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/background2.jpg"
+          src="/home.jpg"
           alt="Professionals in a modern office environment"
           fill
           className="object-cover object-center"

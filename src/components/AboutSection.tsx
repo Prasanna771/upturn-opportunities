@@ -48,9 +48,8 @@ const itemVariants: Variants = {
 
 const AboutSection = () => {
   return (
-    // CHANGED: Added dark mode background
     <div className="overflow-x-hidden bg-white dark:bg-black">
-      {/* --- Hero Section (already dark mode compatible) --- */}
+      {/* --- Hero Section --- */}
       <motion.section
         className="relative h-96 md:h-[500px] flex items-center justify-start p-6 md:p-12"
         initial={{ opacity: 0 }}
@@ -88,12 +87,12 @@ const AboutSection = () => {
       {/* --- Main Content Sections --- */}
       <div className="max-w-7xl mx-auto px-6 space-y-24 my-24">
         
-        {/* --- Who We Are Section --- */}
+        {/* --- Who We Are Section (FIXED: Changed to 'animate' to load first) --- */}
         <motion.section
           className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
           variants={sectionVariants}
           initial="hidden"
-          whileInView="visible"
+          animate="visible" // <-- THIS WAS CHANGED
           viewport={{ once: true, amount: 0.3 }}
         >
           <motion.div variants={slideInLeft} className="text-left">
@@ -111,7 +110,7 @@ const AboutSection = () => {
           </motion.div>
         </motion.section>
 
-        {/* --- What We Do Section --- */}
+        {/* --- What We Do Section (This will animate on scroll) --- */}
         <motion.section
           className="text-center"
           initial="hidden"
@@ -158,7 +157,7 @@ const AboutSection = () => {
           </motion.div>
         </motion.section>
 
-        {/* --- Why Choose Us Section --- */}
+        {/* --- Why Choose Us Section (This will animate on scroll) --- */}
         <motion.section
           className="text-center"
           initial="hidden"
