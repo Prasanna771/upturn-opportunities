@@ -3,8 +3,8 @@ import { Montserrat, Poppins } from 'next/font/google';
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+//import { ThemeProvider } from "@/components/ThemeProvider";
 
-// Initialize fonts and assign them to CSS variables
 const montserrat = Montserrat({
   subsets: ['latin'],
   display: 'swap',
@@ -20,28 +20,40 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "Upturn Opportunities",
+  description: "Connecting skilled IT professionals with top U.S. companies. Empower your career with trusted opportunities and expert guidance.",
   icons: {
-    icon: "/favicon-32x32.png",
+    // This tells Google to use your favicon
+    icon: "/favicon-32x32.png", 
   },
-  description: "Connecting skilled IT professionals with top U.S. companies",
-  other: {
-      'color-scheme': 'light only',
-      "theme-color": "#ffffff",
-},
-}
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // The <html> and <body> tags are required here
-    <html lang="en" className={`${montserrat.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${poppins.variable}`} suppressHydrationWarning>
       <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        
+        {/* THIS IS THE NEW CODE THAT FIXES YOUR SITE NAME */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Upturn Opportunities",
+            "url": "https://www.upturnops.com",
+          })}}
+        />
+        {/* END OF NEW CODE */}
+
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
