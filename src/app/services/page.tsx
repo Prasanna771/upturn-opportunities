@@ -40,7 +40,7 @@ const itemFadeIn: Variants = {
 
 export default function ServicesPage() {
   return (
-    <main className="bg-white dark:bg-black overflow-x-hidden">
+    <main className="bg-white overflow-x-hidden">
       {/* --- Page Header --- */}
       <motion.header 
         className="relative h-96 md:h-[500px] flex items-center justify-start text-white p-6 md:p-12"
@@ -52,13 +52,14 @@ export default function ServicesPage() {
           src="/images/services.jpg"
           alt="Our Services"
           fill
-          className="object-cover"
+          className="object-cover z-0" // Use z-0
           priority
         />
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 max-w-7xl mx-auto w-full">
+        {/* REMOVED: Dark overlay */}
+        <div className="relative z-20 max-w-7xl mx-auto w-full">
             <motion.h1 
                 className="text-4xl md:text-6xl font-bold font-heading"
+                style={{textShadow: '2px 2px 8px rgba(0,0,0,0.7)'}} // Added text shadow for readability
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -67,6 +68,7 @@ export default function ServicesPage() {
             </motion.h1>
             <motion.p 
                 className="mt-4 text-lg md:text-xl max-w-3xl"
+                style={{textShadow: '1px 1px 6px rgba(0,0,0,0.7)'}} // Added text shadow for readability
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
@@ -102,15 +104,15 @@ export default function ServicesPage() {
             
             {/* Text Content Column */}
             <motion.div 
-              className="p-8 bg-slate-50 dark:bg-gray-800 rounded-lg border border-[#17134d] dark:border-blue-800 shadow-[0_0_20px_rgba(23,19,77,0.40)] dark:shadow-[0_0_20px_rgba(59,130,246,0.25)]"
+              className="p-8 bg-slate-50 rounded-lg border border-[#17134d] shadow-[0_0_20px_rgba(23,19,77,0.40)]"
               variants={itemFadeIn}
             >
               <h3 
-                className="text-3xl font-bold font-heading mb-4 text-[#17134d] dark:text-white"
+                className="text-3xl font-bold font-heading mb-4 text-[#17134d]"
               >
                 {service.title}
               </h3>
-              <p className="text-black dark:text-gray-300 text-lg leading-relaxed">
+              <p className="text-black text-lg leading-relaxed">
                 {service.description}
               </p>
             </motion.div>

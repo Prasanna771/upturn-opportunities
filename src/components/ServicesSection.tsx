@@ -1,22 +1,20 @@
 "use client";
 import { motion, Variants } from 'framer-motion';
 
-// ServiceCard component with dark mode styles
+// ServiceCard component (light mode only)
 const ServiceCard = ({ title, children }: { title: string; children: React.ReactNode }) => {
   return (
     <motion.div
-      // CHANGED: Added dark mode classes for background, border, and shadow
-      className="bg-slate-50 dark:bg-gray-800 p-8 rounded-lg h-full border border-[#17134d] dark:border-blue-800 shadow-[0_0_20px_rgba(23,19,77,0.40)] dark:shadow-[0_0_20px_rgba(59,130,246,0.25)]"
+      className="bg-slate-50 p-8 rounded-lg h-full border border-[#17134d] shadow-[0_0_20px_rgba(23,19,77,0.40)]"
       whileHover={{ y: -5, boxShadow: "0px 10px 35px rgba(23,19,77,0.35)" }}
       transition={{ type: "spring", stiffness: 300 }}
     >
       <h3 
-        // CHANGED: Replaced inline style with classes for dark mode support
-        className="text-3xl font-semibold mb-4 font-heading text-[#17134d] dark:text-white"
+        className="text-3xl font-semibold mb-4 font-heading text-[#17134d]"
       >
         {title}
       </h3>
-      <div className="text-black dark:text-gray-300 space-y-3 font-sans">{children}</div>
+      <div className="text-black space-y-3 font-sans">{children}</div>
     </motion.div>
   );
 };
@@ -38,20 +36,17 @@ export default function ServicesSection() {
   };
 
   return (
-    // CHANGED: Added dark mode background
     <motion.section
-      className="py-24 bg-white dark:bg-black"
+      className="py-24 bg-white"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
     >
-      {/* CHANGED: Added a container div to constrain the content width */}
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 
-            // CHANGED: Replaced inline style with classes for dark mode support
-            className="text-4xl md:text-5xl font-bold font-heading text-[#17134d] dark:text-white"
+            className="text-4xl md:text-5xl font-bold font-heading text-[#17134d]"
           >
             Consulting with <span className="text-blue-600">Clarity</span>, Recruiting with <span className="text-blue-600">Purpose</span>
           </h2>

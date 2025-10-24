@@ -9,7 +9,7 @@ import FinalCTASection from '../components/FinalCTASection';
 
 export default function HomePage() {
   return (
-    <main className="bg-white dark:bg-black">
+    <main className="bg-white">
       <HeroSection />
 
       {/* CHANGED: Removed the wrapping container div. */}
