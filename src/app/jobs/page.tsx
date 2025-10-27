@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useActionState, useFormStatus }from 'react';
+import { useActionState}from 'react';
+import { useFormStatus } from 'react-dom';
 import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { UploadCloud, X } from 'lucide-react';
