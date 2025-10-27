@@ -1,136 +1,121 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import React from 'react';
 
 export default function HeroSection() {
-  const headingLine1 = "Your Ambition";
-  const headingLine2 = "Our Expertise";
-  const headingLine3 = "One Shared Vision.";
-  const fullTagline = "Consulting with Clarity. Recruiting with Purpose.";
+  const headingLines = [
+    "Your Ambition,",
+    "Our Expertise,",
+    "One Shared Vision."
+  ];
 
-  const [animateHeading, setAnimateHeading] = useState(false);
-  const [animateTagline, setAnimateTagline] = useState(false);
+  const fullTagline = "Turning Talent into Opportunity.";
+
+  const [animateContent, setAnimateContent] = useState(false);
 
   useEffect(() => {
-    const headingTimer = setTimeout(() => setAnimateHeading(true), 200);
-    const taglineTimer = setTimeout(() => setAnimateTagline(true), 2200);
-
-    return () => {
-      clearTimeout(headingTimer);
-      clearTimeout(taglineTimer);
-    };
+    const timer = setTimeout(() => setAnimateContent(true), 300);
+    return () => clearTimeout(timer);
   }, []);
 
-  const JumblyHeading = useMemo(() => {
-    if (!animateHeading) return null;
-    const renderLine = (lineText: string) => {
-      return lineText.split("").map((char, index) => {
-        const style = {
-          '--initial-rotate': `${Math.random() * 60 - 30}deg`,
-          '--animation-duration': `${Math.random() * 0.5 + 1.2}s`,
-        } as React.CSSProperties;
-
-        return (
-          <span key={index} className="jumbly-char" style={style}>
-            {char === " " ? "\u00A0" : char}
-          </span>
-        );
-      });
-    };
-    return (
-      <>
-        <span className="block">{renderLine(headingLine1)}</span>
-        <span className="block">{renderLine(headingLine2)}</span>
-        <span className="block">{renderLine(headingLine3)}</span>
-      </>
-    );
-  }, [animateHeading]);
-
-  // --- The AnimatedTagline is defined here, with the smaller font sizes ---
-  const taglineVariants: Variants = {
+  const headingContainerVariants: Variants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.05 } },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      },
+    },
   };
 
-  const wordVariants: Variants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 100 } },
+  const headingLineVariants: Variants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      }
+    },
   };
 
-  const AnimatedTagline = (
-    <AnimatePresence>
-      {animateTagline && (
-        <motion.p
-          className="text-lg sm:text-xl md:text-2xl text-gray-200 font-medium"
-          variants={taglineVariants}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-        >
-          {fullTagline.split(" ").map((word, index) => (
-            <React.Fragment key={index}>
-              <motion.span variants={wordVariants} className="inline-block">
-                {word}
-              </motion.span>
-              {' '}
-            </React.Fragment>
-          ))}
-        </motion.p>
-      )}
-    </AnimatePresence>
-  );
+  const taglineVariants: Variants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+        delay: headingLines.length * 0.2 + 0.5
+      }
+    },
+  };
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen overflow-hidden">
-      {/* Background Container */}
-      <div className="absolute inset-0 z-0">
+    // CHANGED: Height is now 50vh on mobile and 80vh on desktop
+    <div className="relative flex items-center justify-center h-[50vh] md:h-[90vh] overflow-hidden bg-white">
+      
+      {/* Background Image */}
+      <div className="absolute inset-0 z-10"> 
         <Image
-          src="/home.jpg"
-          alt="Professionals in a modern office environment"
+          src="/background.jpg" // Make sure this image exists in your /public folder
+          alt="Abstract 4K ultra-HD plexus network on a dark navy blue background"
           fill
           className="object-cover object-center"
           priority
+          unoptimized={true} 
+          // REMOVED: Blur filter style is gone
         />
-        <div className="absolute inset-0 bg-black opacity-60"></div>
+        {/* Semi-transparent dark overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black opacity-40"></div>
       </div>
-
+      
       {/* Foreground Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 text-left">
-        <h1 
-          className="text-4xl sm:text-6xl lg:text-8xl font-extrabold text-white mb-8 drop-shadow-lg leading-none font-heading"
-        >
-          {JumblyHeading}
-        </h1>
+      <div className="relative z-30 w-full max-w-7xl mx-auto px-12 text-left pt-20">
+        <div className="max-w-4xl mx-auto md:mx-0">
+          <AnimatePresence>
+            {animateContent && (
+              <motion.div
+                variants={headingContainerVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                {headingLines.map((line, index) => (
+                  <motion.h1
+                    key={index}
+                    variants={headingLineVariants}
+                    className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight font-heading text-white"
+                    style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}
+                  >
+                    {line}
+                  </motion.h1>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-        {/* --- And the AnimatedTagline is rendered here --- */}
-        <div className="h-12">
-          {AnimatedTagline}
+          <AnimatePresence>
+            {animateContent && (
+              <motion.p
+                className="text-base sm:text-lg md:text-xl font-medium text-white mt-4"
+                style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.6)' }}
+                variants={taglineVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                {fullTagline}
+              </motion.p>
+            )}
+          </AnimatePresence>
         </div>
       </div>
-
-      {/* CSS for Jumbly Heading */}
-      <style jsx global>{`
-        .jumbly-char {
-          display: inline-block;
-          opacity: 0;
-          animation-name: jumbleFall;
-          animation-fill-mode: forwards;
-          animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          animation-duration: var(--animation-duration);
-        }
-        @keyframes jumbleFall {
-          0% {
-            opacity: 0;
-            transform: translateY(-150vh) rotate(var(--initial-rotate)) scale(0.5);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0) rotate(0) scale(1);
-          }
-        }
-      `}</style>
     </div>
   );
 }

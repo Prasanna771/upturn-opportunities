@@ -45,7 +45,7 @@ export default function Footer() {
         <div className="flex justify-center md:justify-end">
           <div className="flex items-center gap-5">
             <a 
-              href="https://www.linkedin.com/in/prasanna771" 
+              href="https://www.linkedin.com/company/upturnopportunities-pvt-ltd/about/" 
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="LinkedIn" 
@@ -54,13 +54,13 @@ export default function Footer() {
               <Linkedin size={22} />
             </a>
             <a 
-              href="mailto:prasannareddy771@gmail.com" 
+              href="mailto:rakesh@uptrunops.com" 
               aria-label="Email" 
               className="hover:text-blue-600 transition-colors"
             >
               <Mail size={22} />
             </a>
-            <a 
+            {/* <a 
               href="https://www.instagram.com/bommidi_prasanna" 
               target="_blank" 
               rel="noopener noreferrer" 
@@ -68,7 +68,7 @@ export default function Footer() {
               className="hover:text-blue-600 transition-colors"
             >
               <Instagram size={22} />
-            </a>
+            </a> */}
           </div>
         </div>
       </div>

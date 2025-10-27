@@ -48,7 +48,6 @@ const itemVariants: Variants = {
 
 export default function AboutPage() {
   return (
-    // Set main background to white
     <main className=" bg-white">
       {/* --- Hero Section --- */}
       <motion.section
@@ -61,16 +60,15 @@ export default function AboutPage() {
           src="/growth_chart.png"
           alt="Diverse team meeting"
           fill
-          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          // CHANGED: objectPosition set to 'top' to show the top of the image
+          style={{ objectFit: 'cover', objectPosition: 'top' }}
           priority
-          // Added z-0 to ensure it's the background
           className="z-0"
         />
-        {/* Removed dark overlay */}
         <div className="relative z-10 text-left max-w-4xl text-white">
           <motion.h1 
             className="text-4xl md:text-6xl font-bold font-heading mb-4 leading-tight"
-            style={{textShadow: '2px 2px 8px rgba(0,0,0,0.7)'}} // Added text shadow for readability
+            style={{textShadow: '2px 2px 8px rgba(0,0,0,0.7)'}}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -79,7 +77,7 @@ export default function AboutPage() {
           </motion.h1>
           <motion.p 
             className="text-xl md:text-2xl font-light font-sans"
-            style={{textShadow: '1px 1px 6px rgba(0,0,0,0.7)'}} // Added text shadow for readability
+            style={{textShadow: '1px 1px 6px rgba(0,0,0,0.7)'}}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
@@ -90,19 +88,18 @@ export default function AboutPage() {
       </motion.section>
 
       {/* --- Main Content Sections --- */}
-      {/* Use a single motion container to ensure sequential animation */}
       <motion.div 
         className="max-w-7xl mx-auto px-6 space-y-24 my-24"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.05 }} // Triggers when 5% of the container is visible
-        variants={sectionVariants} // This staggers the children sections
+        viewport={{ once: true, amount: 0.05 }}
+        variants={sectionVariants}
       >
         
         {/* --- Who We Are Section --- */}
         <motion.section
           className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
-          variants={itemVariants} // Each section is now an item in the main stagger
+          variants={itemVariants}
         >
           <div className="text-left">
             <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 text-[#17134d]">
@@ -141,7 +138,7 @@ export default function AboutPage() {
                 <div className="text-[#17134d]"><Building2 size={40} /></div>
                 <h3 className="text-2xl font-semibold font-heading text-blue-600">For Companies</h3>
               </div>
-              <p className="text-black">We deliver pre-screened, skilled, and dependable talent that drives business outcomes.</p>
+              <p className="text-black">At Upturn Opportunities, we deliver pre-screened and dependable talent that aligns with your organization’s goals. Partner with us to accelerate delivery, boost productivity, and drive growth.</p>
             </motion.div>
             {/* Card for Job Seekers */}
             <motion.div 
@@ -153,7 +150,7 @@ export default function AboutPage() {
                 <div className="text-[#17134d]"><BriefcaseBusiness size={40} /></div>
                 <h3 className="text-2xl font-semibold font-heading text-blue-600">For Job Seekers</h3>
               </div>
-              <p className="text-black">We guide you toward roles that fit your skills, passions, and career growth aspirations.</p>
+              <p className="text-black">We connect skilled professionals with roles that match their expertise and ambitions. Grow your career with opportunities that inspire, challenge, and reward your potential.</p>
             </motion.div>
           </div>
         </motion.section>

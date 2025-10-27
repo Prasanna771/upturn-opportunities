@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { Mail, Phone, MapPin, Clock, Instagram, Linkedin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
 import { handleContactForm, FormState } from '../actions'; // Adjust path if needed
 
 // --- Submit Button Component ---
@@ -39,16 +39,16 @@ export default function ContactPage() {
   }, [state.success]);
 
   return (
-    // Set main background to white
-    <main className="bg-white">
+    <main>
       {/* --- Header --- */}
       <header className="relative py-28 md:py-36 overflow-hidden">
+        {/* Layer 1: Background Image (z-0) */}
         <div
           className="absolute inset-0 bg-cover bg-center z-0"
           style={{ backgroundImage: "url('/images/contact-header.jpg')" }}
         ></div>
-        {/* Removed dark overlay */}
         
+        {/* Layer 3: Content with Text Shadow for readability (z-20) */}
         <div className="relative z-20 max-w-7xl mx-auto px-6 text-left">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold font-heading text-white animate-slide-in-left drop-shadow-lg">
@@ -76,7 +76,7 @@ export default function ContactPage() {
               <Mail className="text-blue-600 mt-1 flex-shrink-0" size={24} />
               <div>
                 <h3 className="font-bold text-lg text-slate-800">Email</h3>
-                <a href="mailto:support@upturnopportunities.com" className="text-gray-700 hover:text-blue-600 break-all">support@upturnopportunities.com</a>
+                <a href="mailto:support@upturnopportunities.com" className="text-gray-700 hover:text-blue-600 break-all">support@upturops.com</a>
               </div>
             </div>
 
@@ -101,7 +101,6 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-bold text-lg text-slate-800">Office Hours</h3>
                 <p className="text-gray-700">Mon-Fri: 9am - 6pm</p>
-                <p className="text-gray-700">Sat: 10am - 2pm</p>
               </div>
             </div>
           </div>
@@ -155,24 +154,8 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* --- Socials Section --- */}
-      <section className="text-center py-16 bg-slate-50">
-        <h2 className="text-3xl font-bold font-heading mb-4 text-slate-800">Let's Connect</h2>
-        <p className="text-gray-700 max-w-2xl mx-auto mb-8">
-          Stay connected with us on social platforms to get updates on job openings, career tips, and industry insights.
-        </p>
-        <div className="flex justify-center items-center gap-6">
-          <a href="mailto:prasannareddy771@gmail.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600 transition-colors">
-            <Mail size={32} />
-          </a>
-          <a href="https://instagram.com/bommidi_prasanna" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-600 transition-colors">
-            <Instagram size={32} />
-          </a>
-          <a href="https://www.linkedin.com/in/vinayredde" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-700 transition-colors">
-            <Linkedin size={32} />
-          </a>
-        </div>
-      </section>
+      {/* --- Socials Section (REMOVED) --- */}
+      
     </main>
   );
 }

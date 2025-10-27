@@ -1,6 +1,5 @@
 "use client";
 import HeroSection from '../components/HeroSection';
-import IntroSection from '../components/IntroSection';
 import ServicesSection from '../components/ServicesSection';
 import ApproachSection from '../components/ApproachSection';
 import AudienceSection from '../components/AudienceSection';
@@ -14,7 +13,7 @@ export default function HomePage() {
 
       {/* CHANGED: Removed the wrapping container div. */}
       {/* Each section will now be full-width by default. */}
-      <IntroSection /> 
+      
       
       <ServicesSection />
       <ApproachSection />

@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useActionState } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useActionState, useFormStatus }from 'react';
 import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { UploadCloud, X } from 'lucide-react';
@@ -15,12 +14,7 @@ const mockJobs = [
   { id: 3, title: "Data Analyst", company: "Data Insights LLC", location: "Pune, India", skills: ["SQL", "Python", "Power BI"] },
   { id: 4, title: "QA Automation Engineer", company: "QualityFirst Software", location: "Remote", skills: ["Selenium", "Java", "CI/CD"] },
 ];
-const jobCategories = [
-    { category: "Software Development", skills: ["Java", "React", "Spring Boot", "Node.js", "Python"] },
-    { category: "Cloud Technologies", skills: ["Azure", "AWS", "GCP", "DevOps"] },
-    { category: "Data & Analytics", skills: ["Data Engineer", "BI Analyst", "ML Engineer"] },
-    { category: "Quality Assurance", skills: ["Manual & Automation Testing"] },
-];
+// REMOVED: jobCategories data is no longer needed
 
 // --- Submit Button ---
 function SubmitButton() {
@@ -42,12 +36,11 @@ const JobApplicationModal = ({ jobs, onClose }: { jobs: typeof mockJobs; onClose
   const [countryCode, setCountryCode] = useState('+91');
 
   useEffect(() => {
-    if (state.success) 
-      {
+    if (state.success) {
       formRef.current?.reset();
-      
+      // Timer is removed, modal stays open until "Close" is clicked
     }
-  }, [state, onClose]);
+  }, [state.success]);
 
   const handleResumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -155,11 +148,9 @@ export default function JobsPage() {
             src="/images/jobs-header.jpg"
             alt="Find your next opportunity"
             fill
-            className="object-cover z-0" // Use z-0
+            className="object-cover z-0"
             priority
           />
-          {/* REMOVED: Dark overlay div */}
-          
           <div className="relative z-20 max-w-7xl mx-auto w-full px-6 flex justify-start">
             <motion.div 
               className="max-w-xl text-left"
@@ -179,6 +170,7 @@ export default function JobsPage() {
 
         <div className="max-w-7xl mx-auto px-6 py-16 space-y-20">
           
+          {/* Why Apply Section */}
           <section className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold font-heading mb-10 text-[#17134d]">Why Apply Through Upturn?</h2>
             <motion.div 
@@ -207,6 +199,7 @@ export default function JobsPage() {
             </motion.div>
           </section>
 
+          {/* Job Listings Section */}
           <section>
             <h2 className="text-3xl md:text-4xl font-bold font-heading text-center mb-10 text-[#17134d]">Current Openings</h2>
             <motion.div 
@@ -233,26 +226,9 @@ export default function JobsPage() {
             </div>
           </section>
 
-          <section>
-            <h2 className="text-3xl md:text-4xl font-bold font-heading text-center mb-10 text-[#17134d]">Featured Job Categories</h2>
-            <motion.div 
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-            >
-              {jobCategories.map(cat => (
-                <motion.div key={cat.category} variants={fadeInUpItem} className="bg-slate-50 p-6 rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-100">
-                  <h3 className="text-lg font-bold text-blue-600 font-heading mb-3">{cat.category}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {cat.skills.map(skill => <span key={skill} className="bg-gray-200 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">{skill}</span>)}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </section>
+          {/* REMOVED: Featured Job Categories Section */}
 
+          {/* How It Works Section */}
           <motion.section 
             className="text-center"
             initial="hidden"

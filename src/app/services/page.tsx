@@ -4,38 +4,44 @@ import React from 'react';
 import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 
-// --- Service Data with Image Paths ---
+// --- Service Data with Image Paths (and typo fixed) ---
 const services = [
   { imageSrc: "/images/services/it-staffing.jpg", title: "IT Staffing Solutions", description: "At Upturn Opportunities, we specialize in connecting organizations with top-tier IT professionals who are not only technically proficient but also a perfect cultural fit. Our team carefully vets every candidate through technical assessments and behavioral interviews to ensure your business gains reliable, skilled, and ready-to-contribute talent. Whether you’re building a development team, scaling IT operations, or hiring for niche technologies, we help you find the right match — faster and smarter." },
   { imageSrc: "/images/services/rpo.jpg", title: "Recruitment Process Outsourcing (RPO)", description: "Our Recruitment Process Outsourcing (RPO) model lets you focus on your core business while we manage the entire hiring lifecycle — from talent sourcing and screening to onboarding and post-hire follow-up. Acting as an extension of your HR team, we integrate proven recruitment strategies, tools, and networks to deliver cost-effective, scalable, and quality-driven hiring solutions. With our RPO services, you can significantly reduce time-to-hire, improve candidate quality, and strengthen your employer brand." },
   { imageSrc: "/images/services/cloud-hiring.jpg", title: "Cloud & Technology Hiring", description: "In today’s digital-first world, success depends on having the right technology talent. Our Cloud and Technology Hiring services specialize in sourcing experts across platforms like Microsoft Azure, Amazon Web Services (AWS), and Google Cloud Platform (GCP). From DevOps engineers to AI/ML specialists, data scientists, and cybersecurity professionals, we connect you with skilled individuals who drive digital transformation and innovation. Our deep technical expertise ensures every candidate we recommend can add value from day one." },
+  // FIXED: Corrected 'image_src' to 'imageSrc'
   { imageSrc: "/images/services/contract-staffing.jpg", title: "Contract & Permanent Staffing", description: "Every organization has unique workforce needs — and we’re here to meet them all through our Contract and Permanent Staffing solutions. Whether you need contract-based professionals for short-term projects or permanent hires for long-term success, we offer flexible staffing options aligned with your business objectives. We handle sourcing, background verification, payroll support, and compliance, ensuring a smooth and transparent hiring process that delivers dependable talent quickly and efficiently." },
   { imageSrc: "/images/services/executive-search.jpg", title: "Executive Search & Leadership Hiring", description: "Leadership defines culture, direction, and organizational success — and finding the right leaders requires precision. Through our Executive Search and Leadership Hiring services, we identify, attract, and engage senior professionals who align with your company’s mission, values, and vision. By combining market intelligence, discreet networking, and comprehensive evaluation, we connect you with visionary leaders who can drive innovation, growth, and long-term success." },
   { imageSrc: "/images/services/talent-consultation.jpg", title: "Talent Consultation & Advisory", description: "At Upturn Opportunities, we go beyond recruitment with our Talent Consultation and Advisory services. We help organizations develop sustainable talent strategies that align with their long-term goals. From workforce planning and skills gap analysis to succession planning and retention strategies, we provide actionable insights to strengthen your human capital. As your trusted advisors, we ensure your workforce remains competitive, agile, and future-ready in an ever-evolving market." },
 ];
 
 // --- Animation Variants ---
-const containerSlideInLeft: Variants = {
-  hidden: { opacity: 0, x: -50 },
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
   visible: { 
     opacity: 1, 
-    x: 0, 
-    transition: { duration: 0.7, ease: "easeOut", staggerChildren: 0.2 } 
+    transition: { staggerChildren: 0.2, delayChildren: 0.2 } 
   },
 };
 
-const containerSlideInRight: Variants = {
-  hidden: { opacity: 0, x: 50 },
+// This slides in from the left with a spring
+const slideInFromLeft: Variants = {
+  hidden: { opacity: 0, x: -100 },
   visible: { 
     opacity: 1, 
     x: 0, 
-    transition: { duration: 0.7, ease: "easeOut", staggerChildren: 0.2 } 
+    transition: { type: "spring", stiffness: 100, damping: 15, mass: 1 } 
   },
 };
 
-const itemFadeIn: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+// This slides in from the right with a spring
+const slideInFromRight: Variants = {
+  hidden: { opacity: 0, x: 100 },
+  visible: { 
+    opacity: 1, 
+    x: 0, 
+    transition: { type: "spring", stiffness: 100, damping: 15, mass: 1 } 
+  },
 };
 
 export default function ServicesPage() {
@@ -52,14 +58,14 @@ export default function ServicesPage() {
           src="/images/services.jpg"
           alt="Our Services"
           fill
-          className="object-cover z-0" // Use z-0
+          className="object-cover z-0"
           priority
         />
-        {/* REMOVED: Dark overlay */}
+        <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
+        
         <div className="relative z-20 max-w-7xl mx-auto w-full">
             <motion.h1 
                 className="text-4xl md:text-6xl font-bold font-heading"
-                style={{textShadow: '2px 2px 8px rgba(0,0,0,0.7)'}} // Added text shadow for readability
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -68,7 +74,6 @@ export default function ServicesPage() {
             </motion.h1>
             <motion.p 
                 className="mt-4 text-lg md:text-xl max-w-3xl"
-                style={{textShadow: '1px 1px 6px rgba(0,0,0,0.7)'}} // Added text shadow for readability
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
@@ -87,12 +92,12 @@ export default function ServicesPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            variants={index % 2 === 0 ? containerSlideInLeft : containerSlideInRight}
+            variants={staggerContainer} // Use the stagger parent here
           >
             {/* Image Column */}
             <motion.div 
               className={`relative w-full h-80 rounded-2xl overflow-hidden shadow-xl ${index % 2 !== 0 ? 'md:order-last' : ''}`}
-              variants={itemFadeIn}
+              variants={index % 2 === 0 ? slideInFromLeft : slideInFromRight}
             >
               <Image
                 src={service.imageSrc}
@@ -105,7 +110,7 @@ export default function ServicesPage() {
             {/* Text Content Column */}
             <motion.div 
               className="p-8 bg-slate-50 rounded-lg border border-[#17134d] shadow-[0_0_20px_rgba(23,19,77,0.40)]"
-              variants={itemFadeIn}
+              variants={index % 2 === 0 ? slideInFromRight : slideInFromLeft}
             >
               <h3 
                 className="text-3xl font-bold font-heading mb-4 text-[#17134d]"

@@ -32,7 +32,7 @@ export async function handleContactForm(
   try {
     const { data, error } = await resend.emails.send({
       from: 'Contact Form <onboarding@resend.dev>',
-      to: ['prasannareddy771@gmail.com'],
+      to: ['rakesh@upturnops.com'],
       subject: `New Message from ${name} via Contact Form`,
       html: `
         <h2>New Contact Form Submission</h2>
@@ -85,7 +85,7 @@ export async function handleJobApplication(
 
     const { data, error } = await resend.emails.send({
       from: 'Job Application <onboarding@resend.dev>',
-      to: ['prasannareddy771@gmail.com'],
+      to: ['rakesh@upturnops.com'],
       subject: `New Job Application for: ${jobTitle}`,
       html: `
         <h2>New Application Received</h2>

@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // REMOVED: The 'darkMode: "class"' line has been deleted
+
+  
+  
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -8,11 +10,17 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        // ... other colors
+        'upturn-blue': '#007BFF', // <-- ADD THIS LINE (or use your own hex code)
+      },
       fontFamily: {
         sans: ['var(--font-montserrat)'],
         heading: ['var(--font-poppins)'],
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("tailwindcss-animate"),
+  ],
 };
