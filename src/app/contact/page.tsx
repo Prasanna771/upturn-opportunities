@@ -76,7 +76,7 @@ export default function ContactPage() {
               <Mail className="text-blue-600 mt-1 flex-shrink-0" size={24} />
               <div>
                 <h3 className="font-bold text-lg text-slate-800">Email</h3>
-                <a href="mailto:support@upturnopportunities.com" className="text-gray-700 hover:text-blue-600 break-all">support@upturops.com</a>
+                <a href="mailto:support@upturnopportunities.com" className="text-gray-700 hover:text-blue-600 break-all">support@upturnops.com</a>
               </div>
             </div>
 
